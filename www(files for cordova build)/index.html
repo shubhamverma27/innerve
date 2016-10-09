@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Acceleration Example</title>
+          <link rel="stylesheet" href="css/style.css">
+       <link rel="stylesheet" href="css/animate.css">
+
+     <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+      
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      
+      <link rel="stylesheet" href="font-awesome-4.5.0\css\font-awesome.min.css">
+      
+    
+    
+    
+<script type="text/javascript" charset="utf-8">
+
+    
+var watchID = null;
+var j=5;
+   var x =new Array(5);
+	    var y =new Array(5);
+	    var z =new Array(5);
+        var i=-1;
+function value123(){
+     j=document.getElementById("offset").value;
+     j=parseInt(j);
+     //console.log(j);
+      }
+function onLoad(){
+document.addEventListener("deviceready", onDeviceReady, false);
+}
+function onDeviceReady() {
+startWatch();
+}
+function startWatch() {
+var options = { frequency: 1000 };
+watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+}
+function stopWatch() {
+if (watchID) {
+navigator.accelerometer.clearWatch(watchID);
+watchID = null;
+}
+}
+function onSuccess(acceleration) {
+    
+   var element = document.getElementById('accelerometer');
+element.innerHTML = 'Acceleration X: ' + acceleration.x + '<br />' +
+'Acceleration Y: ' + acceleration.y + '<br />' +
+'Acceleration Z: ' + acceleration.z + '<br />' +
+'Timestamp: ' + acceleration.timestamp + '<br />';
+    var accx= parseFloat(acceleration.x).toFixed( 4 );
+    var accy= parseFloat(acceleration.y).toFixed( 4 );
+    var accz= parseFloat(acceleration.z).toFixed( 4 );
+ document.getElementById('yeX').innerHTML = accx;
+     document.getElementById('yeY').innerHTML = accy;
+     document.getElementById('yeZ').innerHTML = accz;
+    
+
+    
+    
+i++; 
+            
+            x[i] =  acceleration.x;
+            y[i] =  acceleration.y;
+            z[i] =  acceleration.z;
+             if(i==4)
+	    	{
+	    		document.getElementById("shubx").value=x.toString();
+	    		document.getElementById("shuby").value=y.toString();
+	    		document.getElementById("shubz").value=z.toString();
+	   	 	}
+	   	 	i=i%5;
+
+}
+function onError() {
+
+alert('onError!');
+}
+
+    
+     var send=setInterval(function(){
+    document.getElementById("form").submit();
+  },10000);
+
+function stopper(){
+  clearInterval(send);
+}
+
+
+
+</script>
+</head>
+    
+     </div>
+   
+  
+      
+   
+      
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+
+        <script src="js/index.js"></script>
+
+ 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<body onload="onLoad()">
+ <iframe id="some_name" name="some_name" style="display:none ; position:absolute; z-index:-100"></iframe>       
+<div style="display:none;">
+    <div id="accelerometer">Waiting for accelerometer...</div>
+<button onclick="startWatch();">Start Watching</button>
+<button onclick="stopWatch();stopper();">Stop Watching</button>
+
+ 
+    <form id="form" name="form" action="http://192.168.122.191/db.php"  method="post" target="some_name">
+        <input type="text" name="namex" id="shubx">
+         <input type="text" name="namey" id="shuby">
+          <input type="text" name="namez" id="shubz">
+        <input type="submit" value="run" id="run">
+       
+        </form>
+</div>
+    
+    
+    
+    
+        
+      
+    
+    
+                 
+    <div id="auth" class="auth">
+        <a id="logtop"> LOGIN </a>
+        
+         <div id="login">
+
+                        <input type="text" placeholder="username" name="user" id="user"><br>
+                        <input type="password" placeholder="password" name="password" id="pass"><br>
+                        <input type="button" onclick="check()" value="Login" id="loginbtn" class="btn red">
+                        <input type="text" placeholder="enter Host URL" value="http://192.168.122.191/db.php" name="host" id="hostid">
+                </div>
+          
+          </div>
+    
+    
+    <div id="value" class="value">
+        <div id="nav">
+            <i class="fa fa-bars fa-lg"                             onclick="link1()">
+            </i>
+            <div id="name" align="center">APP</div>
+            <div class="icons">
+        <i class="fa fa-cog fa-lg" onclick="link1()">           </i>
+        <i class="fa fa-bar-chart  fa-lg"                       onclick="link1()"></i>
+        <i class="fa fa-inbox fa-lg" onclick="link3()" >            </i>
+        <i class="fa fa-battery-3  fa-lg"                       onclick="link4()"></i>
+            </div>
+        
+        </div>
+        <div id="inside1">
+            <div id="circ1" class="circ1">
+                <a class="text">X</a>
+            </div>
+            <div id="circ2" class="circ2">
+                <a class="text">Y</a>
+            </div>
+            <div id="circ3" class="circ3">
+                <a class="text">Z</a>
+            </div>
+            <div id="btn123" class="btn red"> 
+                <a class="text">SEND</a>
+            </div>
+            <div id="btn1234" class="btn red" onclick="stopper()"> 
+                <a class="text">STOP</a>
+            </div><div id="inputwla">
+            <input type="text" placeholder="Enter Offset Value " name="offset123" id="offset123" STYLE="display:none;color: #000000; font-family: Verdana; font-weight: bold; font-size: 20px; background-color: #72A4D2;" maxlength="30%"></div>
+            <div id="circ4" class="circ1">
+                <a class="text" id="yeX">X</a>
+            </div>
+            <div id="circ5" class="circ2">
+                <a class="text" id="yeY">Y</a>
+            </div>
+            <div id="circ6" class="circ3">
+                <a class="text" id="yeZ">Z</a>
+            </div>
+        </div>
+        <div id="inside2">
+            
+        </div>
+        <div id="inside3">
+            
+        </div>
+        <div id="inside4">
+            
+        </div>
+    </div>
+
+   
+      <div id="loader" class="loader" class=".noSelect" >
+<svg onclick="loader()" id="fingerprint" fingerprint width="70%" height="70%" viewBox="0 0 34 34" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="document" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="_fingerprint" transform="translate(1.000000, 1.000000)" stroke="#0bf779">
+            <circle id="outer-circle" cx="16" cy="16" r="16"></circle>
+            <g transform="translate(7.000000, 6.000000)" stroke-linecap="round">
+                <path id="a" d="M3.14414922,1.97419264 C3.14414922,1.97419264 5.30885997,0.506351808 9.06036082,0.506351808 C12.8118617,0.506351808 14.781903,1.97419264 14.781903,1.97419264" id="Path-6"></path>
+                <path id="b" d="M0.466210729,7.27628774 C0.466210729,7.27628774 3.19024811,2.75878123 9.09512428,2.96502806 C15.0000005,3.17127489 17.4745821,7.17202872 17.4745821,7.17202872" id="Path-7"></path>
+                <path id="c" d="M2,16.4687762 C2,16.4687762 1.12580828,14.9305411 1.27082278,11.9727304 C1.45871447,8.14036841 5.19587478,5.30175361 9.05270871,5.30175361 C12.9095426,5.30175361 15.0000001,7.82879552 15.8975926,9.33195218 C16.5919575,10.4947729 17.7597991,14.4361492 14.6226101,15.0206592 C12.41268,15.4324056 11.5911303,13.4911155 11.5911303,12.9859143 C11.5911303,11.9727302 11.1054172,10.2336826 9.05270848,10.2336826 C6.99999978,10.2336826 6.11384543,11.8665663 6.4593664,13.7955614 C6.6532895,14.8782069 7.59887942,18.3701197 12.0173963,19.5605638" id="Path-8"></path>
+                <path id="d" d="M7.0204614,19.6657197 C7.0204614,19.6657197 3.88328263,16.5690127 3.88328268,12.9603117 C3.88328274,9.35161068 6.59923746,7.80642537 9.0076008,7.80642554 C11.4159641,7.8064257 14.1798468,9.55747124 14.1798468,12.759562" id="Path-9"></path>
+                <path id="e" d="M8.95538742,12.6694189 C8.95538742,12.6694189 9.04883608,18.1288401 15.069217,17.3610597" id="Path-10"></path>
+            </g>
+        </g>
+    </g>
+</svg>
+          
+        </div>
+      
+   
+      
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+
+        <script src="js/index.js"></script>
+   
+    
+                   
+ 
+<script type="text/javascript" src="cordova.js"></script>
+</body>
+</html>
